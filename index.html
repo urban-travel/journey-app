@@ -1,0 +1,52 @@
+<!doctype html>
+<!--
+  Journey planner on top of hrdf-routing-engine.
+  1. In ../hrdf-routing-engine: cargo run --release -- serve
+  2. Open this file in a browser. ?api=http://host:port points it to another server.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Journey Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>Journey Planner</h1><span>Swiss public transport · HRDF</span></header>
+  <main>
+    <form id="search" class="card" autocomplete="off">
+      <div class="places">
+        <div class="field">
+          <label for="from">From</label>
+          <input id="from" placeholder="e.g. Zürich HB" required>
+          <ul class="suggestions" role="listbox"></ul>
+        </div>
+        <button type="button" id="swap" title="Swap from and to" aria-label="Swap from and to">⇅</button>
+        <div class="field">
+          <label for="to">To</label>
+          <input id="to" placeholder="e.g. Bern" required>
+          <ul class="suggestions" role="listbox"></ul>
+        </div>
+      </div>
+      <div class="when">
+        <div class="toggle" role="radiogroup" aria-label="Time is">
+          <label><input type="radio" name="mode" value="departure" checked> Departure</label>
+          <label><input type="radio" name="mode" value="arrival"> Arrival</label>
+        </div>
+        <input type="date" id="date" aria-label="Date" required>
+        <input type="time" id="time" aria-label="Time" required>
+        <button type="submit" id="go">Search</button>
+      </div>
+    </form>
+    <p id="message" role="status"></p>
+    <section id="results" hidden>
+      <h2 id="title"></h2>
+      <button type="button" class="more" id="earlier">Earlier connections</button>
+      <ol id="connections"></ol>
+      <button type="button" class="more" id="later">Later connections</button>
+      <p id="timing"></p>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
